@@ -128,4 +128,20 @@ All colors MUST be HSL.
   .transition-smooth {
     transition: var(--transition-smooth);
   }
+  
+  .card-hover {
+    @apply transition-smooth hover:shadow-elegant hover:-translate-y-1;
+  }
+
+  .gradient-card {
+    @apply bg-gradient-to-br from-background to-muted/30 border-white/10;
+  }
+  
+  .gradient-subtle {
+    background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted) / 0.3) 100%);
+  }
+  
+  .shadow-elegant {
+    box-shadow: 0 10px 30px -10px hsl(var(--primary) / 0.2);
+  }
 }

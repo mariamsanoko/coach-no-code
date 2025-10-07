@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const CTA = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background Gradient */}
@@ -21,11 +25,13 @@ const CTA = () => {
             Start your journey today, completely free.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Button asChild variant="hero" size="xl">
-              <Link to="/auth">
-                Get Started Now
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
+            <Button 
+              variant="hero" 
+              size="xl"
+              onClick={() => navigate(user ? '/dashboard' : '/auth')}
+            >
+              {user ? 'Go to Dashboard' : 'Get Started Now'}
+              <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </div>
           <p className="text-sm text-muted-foreground">

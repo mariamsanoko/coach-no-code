@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const Hero = () => {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -41,17 +45,23 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Button asChild variant="hero" size="xl">
-              <Link to="/auth">
-                Get Started Free
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
+            <Button 
+              variant="hero" 
+              size="xl"
+              onClick={() => navigate(user ? '/dashboard' : '/auth')}
+            >
+              {user ? 'Go to Dashboard' : 'Get Started Free'}
+              <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
-            <Button asChild variant="outline" size="xl">
-              <Link to="/auth">
+            {!user && (
+              <Button 
+                variant="outline" 
+                size="xl"
+                onClick={() => navigate('/auth')}
+              >
                 Sign In
-              </Link>
-            </Button>
+              </Button>
+            )}
           </div>
 
           {/* Trust Badge */}
